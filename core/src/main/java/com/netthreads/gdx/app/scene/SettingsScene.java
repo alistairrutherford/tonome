@@ -29,7 +29,7 @@ import com.netthreads.libgdx.scene.Scene;
  */
 public class SettingsScene extends Scene
 {
-	private Layer  group;
+	private final Layer group;
 
 	public SettingsScene()
 	{
