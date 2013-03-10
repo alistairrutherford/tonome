@@ -21,27 +21,29 @@ import com.netthreads.network.osc.client.OSCClient;
 /**
  * Attempts to connect to OSC end-point.
  * 
+ * Currently you will get thrown back to the menu if the connection doesn't work.
+ * 
  */
 public class ConnectingLayer extends Layer implements ActorEventObserver
 {
 	private static final String UI_FILE = "data/uiskin32.json";
 	private static final String LABEL_FONT = "default-font";
-	
+
 	private static final String TEXT_CONNECTING = "Connect to server";
-	
+
 	private Table table;
 	private Skin skin;
 	private Label loadingLabel;
-	
+
 	private Button connectButton;
-	
+
 	// Director of the action.
 	private Director director;
-	
+
 	private OSCClient oscClient;
-	
+
 	private AppProperties appProperties;
-	
+
 	/**
 	 * Construct the screen.
 	 * 
@@ -51,18 +53,18 @@ public class ConnectingLayer extends Layer implements ActorEventObserver
 	{
 		setWidth(width);
 		setHeight(height);
-		
+
 		director = AppInjector.getInjector().getInstance(Director.class);
 
 		appProperties = AppInjector.getInjector().getInstance(AppProperties.class);
-		
+
 		oscClient = AppInjector.getInjector().getInstance(OSCClient.class);
-		
+
 		loadTextures();
-		
+
 		buildElements();
 	}
-	
+
 	/**
 	 * Enter scene handler.
 	 * 
@@ -71,11 +73,11 @@ public class ConnectingLayer extends Layer implements ActorEventObserver
 	public void enter()
 	{
 		super.enter();
-		
+
 		// Add this as an event observer.
 		director.registerEventHandler(this);
 	}
-	
+
 	/**
 	 * Enter scene handler.
 	 * 
@@ -84,11 +86,11 @@ public class ConnectingLayer extends Layer implements ActorEventObserver
 	public void exit()
 	{
 		super.exit();
-		
+
 		// Remove this as an event observer.
 		director.deregisterEventHandler(this);
 	}
-	
+
 	/**
 	 * Load view textures.
 	 * 
@@ -97,7 +99,7 @@ public class ConnectingLayer extends Layer implements ActorEventObserver
 	{
 		skin = new Skin(Gdx.files.internal(UI_FILE));
 	}
-	
+
 	/**
 	 * Build view elements.
 	 * 
@@ -106,12 +108,12 @@ public class ConnectingLayer extends Layer implements ActorEventObserver
 	{
 		// Title
 		loadingLabel = new Label(TEXT_CONNECTING, skin, LABEL_FONT, Color.WHITE);
-		
+
 		// ---------------------------------------------------------------
 		// Buttons.
 		// ---------------------------------------------------------------
 		connectButton = new TextButton("Connect", skin);
-		
+
 		// Table
 		// ---------------------------------------------------------------
 		table = new Table();
@@ -119,13 +121,13 @@ public class ConnectingLayer extends Layer implements ActorEventObserver
 		table.setSize(getWidth(), getHeight());
 
 		table.row();
-		
+
 		table.row();
 		table.add(loadingLabel).expandY().expandX();
 		table.row();
 		table.add(connectButton).expandY().expandX();
 		table.row();
-		
+
 		table.setFillParent(true);
 
 		// Listener.
@@ -139,11 +141,11 @@ public class ConnectingLayer extends Layer implements ActorEventObserver
 			}
 
 		});
-		
+
 		// Add table to view
 		addActor(table);
 	}
-	
+
 	/**
 	 * Handle events.
 	 * 
@@ -152,36 +154,55 @@ public class ConnectingLayer extends Layer implements ActorEventObserver
 	public boolean handleEvent(ActorEvent event)
 	{
 		boolean handled = false;
-		
+
 		switch (event.getId())
 		{
-			case AppEvents.EVENT_CONNECT_OSC_START:
-				handleConnectStart();
-				handled = true;
-				break;
-			case AppEvents.EVENT_CONNECT_OSC_SUCCESS:
-				handleConnectSuccess();
-				handled = true;
-				break;
-			default:
-				break;
+		case AppEvents.EVENT_CONNECT_OSC_START:
+			handleConnectStart();
+			handled = true;
+			break;
+		case AppEvents.EVENT_CONNECT_OSC_SUCCESS:
+			handleConnectSuccess();
+			handled = true;
+			break;
+		case AppEvents.EVENT_CONNECT_OSC_FAIL:
+			handleConnectFail();
+			handled = true;
+			break;
+		default:
+			break;
 		}
-		
+
 		return handled;
 	}
-	
+
 	/**
 	 * Start connection attempt handler.
 	 * 
 	 */
 	private void handleConnectStart()
 	{
-		if (oscClient.connect(appProperties.getHost(), appProperties.getPort()))
+		try
 		{
-			director.sendEvent(AppEvents.EVENT_CONNECT_OSC_SUCCESS, null);
+			String host = appProperties.getHost();
+			int port = appProperties.getPort();
+			
+			if (oscClient.connect(host, port))
+			{
+				director.sendEvent(AppEvents.EVENT_CONNECT_OSC_SUCCESS, null);
+			}
+		}
+		catch (Exception e)
+		{
+			// Error
+		}
+		
+		if (!oscClient.isConnected())
+		{
+			director.sendEvent(AppEvents.EVENT_CONNECT_OSC_FAIL, null);
 		}
 	}
-	
+
 	/**
 	 * Successful connection handler.
 	 * 
@@ -189,7 +210,19 @@ public class ConnectingLayer extends Layer implements ActorEventObserver
 	private void handleConnectSuccess()
 	{
 		/** TODO PUT AUDIO END HERE */
-		
+
+		director.sendEvent(AppEvents.EVENT_TRANSITION_TO_PANEL_SCENE, null);
+	}
+
+	/**
+	 * Failed connection handler.
+	 * 
+	 */
+	private void handleConnectFail()
+	{
+		/** TODO PUT AUDIO END HERE */
+
 		director.sendEvent(AppEvents.EVENT_TRANSITION_TO_MENU_SCENE, null);
 	}
+
 }

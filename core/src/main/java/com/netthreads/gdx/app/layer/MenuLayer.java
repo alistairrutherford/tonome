@@ -104,7 +104,7 @@ public class MenuLayer extends Layer
 			@Override
 			public void clicked(InputEvent event, float x, float y)
 			{
-				director.sendEvent(AppEvents.EVENT_TRANSITION_TO_PANEL_SCENE, event.getRelatedActor());
+				director.sendEvent(AppEvents.EVENT_TRANSITION_TO_CONNECTING_SCENE, event.getRelatedActor());
 			}
 
 		});

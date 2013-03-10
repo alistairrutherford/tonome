@@ -40,6 +40,7 @@ public class Tonome extends InputAdapter implements ApplicationListener, ActorEv
 	public static final int DEFAULT_HEIGHT = 320;
 
 	private static final int DURATION_TRANSITION_TO_MENU = 500;
+	private static final int DURATION_TRANSITION_TO_CONNECTING = 500;
 	private static final int DURATION_TRANSITION_TO_SETTINGS = 500;
 	private static final int DURATION_TRANSITION_TO_ABOUT = 500;
 
@@ -226,6 +227,10 @@ public class Tonome extends InputAdapter implements ApplicationListener, ActorEv
 			handleTransitionToSettingsScene();
 			handled = true;
 			break;
+		case AppEvents.EVENT_TRANSITION_TO_CONNECTING_SCENE:
+			handleTransitionToConnectingScene();
+			handled = true;
+			break;
 		case AppEvents.EVENT_TRANSITION_TO_PANEL_SCENE:
 			handleTransitionToPanelScene();
 			handled = true;
@@ -272,6 +277,20 @@ public class Tonome extends InputAdapter implements ApplicationListener, ActorEv
 		this.director.setScene(transitionScene);
 	}
 
+	/**
+	 * Run transition.
+	 * 
+	 */
+	private void handleTransitionToConnectingScene()
+	{
+		Scene inScene = getConnectScene();
+		Scene outScene = this.director.getScene();
+
+		TransitionScene transitionScene = MoveInBTransitionScene.$(inScene, outScene, DURATION_TRANSITION_TO_CONNECTING, Linear.INOUT);
+
+		this.director.setScene(transitionScene);
+	}
+	
 	/**
 	 * Run transition.
 	 * 

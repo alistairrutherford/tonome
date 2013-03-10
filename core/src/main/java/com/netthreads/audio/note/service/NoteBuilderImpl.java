@@ -60,7 +60,10 @@ public class NoteBuilderImpl implements NoteBuilder
 		// If there are messages to send then send them.
 		if (oscBundle.getMessages().size() > 0)
 		{
-			oscClient.send(oscBundle);
+			if (oscClient.isConnected())
+			{
+				oscClient.send(oscBundle);
+			}
 		}
 
 	}

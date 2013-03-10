@@ -23,6 +23,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
@@ -65,7 +67,7 @@ public class SettingsLayer extends Layer
 
 	private TextField portValue;
 	private TextField hostValue;
-	
+
 	private Director director;
 	private AppProperties appProperties;
 
@@ -125,11 +127,11 @@ public class SettingsLayer extends Layer
 		// Host
 		final Label hostLabel = new Label("Host", skin);
 		hostValue = new TextField("", skin);
-		
+
 		// Port
 		final Label portLabel = new Label("Port", skin);
 		portValue = new TextField("", skin);
-		
+
 		// Velocity
 		final Label velocityLabel = new Label("Velocity", skin);
 		velocityValueSlider = new Slider(MIN_VELOCITY, MAX_VELOCITY, 1, false, skin);
@@ -165,7 +167,7 @@ public class SettingsLayer extends Layer
 		table.add(bpmValueLabel).padRight(100);
 
 		table.setFillParent(true);
-		
+
 		table.pack();
 
 		addActor(table);
@@ -196,11 +198,13 @@ public class SettingsLayer extends Layer
 				{
 					appProperties.setVelocity((int) value);
 				}
-				
+
 				updateVelocityText();
 			}
 
 		});
+
+		final SettingsLayer layer = this;
 
 		bpmSlider.addListener(new ChangeListener()
 		{
@@ -220,10 +224,44 @@ public class SettingsLayer extends Layer
 				{
 					appProperties.setBpm((int) value);
 				}
-				
+
 				updateBpmText();
 			}
 
+		});
+
+		hostValue.addListener(new InputListener()
+		{
+			public boolean keyUp(InputEvent event, int keycode)
+			{
+				boolean handled = false;
+
+				if (keycode == Keys.BACK || keycode == Keys.ESCAPE)
+				{
+					layer.keyUp(keycode);
+
+					handled = true;
+				}
+
+				return handled;
+			};
+		});
+
+		portValue.addListener(new InputListener()
+		{
+			public boolean keyUp(InputEvent event, int keycode)
+			{
+				boolean handled = false;
+
+				if (keycode == Keys.BACK || keycode == Keys.ESCAPE)
+				{
+					layer.keyUp(keycode);
+
+					handled = true;
+				}
+
+				return handled;
+			};
 		});
 
 	}
@@ -239,6 +277,17 @@ public class SettingsLayer extends Layer
 
 		if (keycode == Keys.BACK || keycode == Keys.ESCAPE)
 		{
+			try
+			{
+				// Update values.
+				appProperties.setHost(hostValue.getText());
+				appProperties.setPort(Integer.valueOf(portValue.getText()));
+			}
+			catch (Exception e)
+			{
+				// Error
+			}
+
 			director.sendEvent(AppEvents.EVENT_TRANSITION_TO_MENU_SCENE, this);
 
 			handled = true;
@@ -272,7 +321,7 @@ public class SettingsLayer extends Layer
 		float value = appProperties.getBpm();
 
 		bpmSlider.setValue(value);
-		
+
 		bpmText.setLength(0);
 		bpmText.append(value);
 		bpmValueLabel.setText(bpmText);
@@ -301,5 +350,5 @@ public class SettingsLayer extends Layer
 		portText.setLength(0);
 		portText.append(value);
 		portValue.setText(portText.toString());
-	}	
+	}
 }
