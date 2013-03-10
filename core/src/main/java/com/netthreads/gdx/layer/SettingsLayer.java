@@ -21,6 +21,7 @@ package com.netthreads.gdx.layer;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -39,6 +40,9 @@ import com.netthreads.libgdx.scene.Layer;
  */
 public class SettingsLayer extends Layer
 {
+	private static final String UI_FILE = "data/uiskin32.json";
+	private static final String URL_LABEL_FONT = "default-font";
+	
 	private static final float MIN_VELOCITY = 0;
 	private static final float MAX_VELOCITY = 127;
 
@@ -46,6 +50,7 @@ public class SettingsLayer extends Layer
 	private static final float MAX_BPM = 480;
 	private static final float INC_BPM = 10;
 
+	private Table table;
 	private Skin skin;
 
 	private StringBuilder velocityText = new StringBuilder(10);
@@ -98,7 +103,7 @@ public class SettingsLayer extends Layer
 	 */
 	private void loadTextures()
 	{
-		skin = new Skin(Gdx.files.internal("data/uiskin32.json"));
+		skin = new Skin(Gdx.files.internal(UI_FILE));
 	}
 
 	/**
@@ -108,97 +113,105 @@ public class SettingsLayer extends Layer
 	private void buildElements()
 	{
 		// ---------------------------------------------------------------
-		// Table
+		// Elements
 		// ---------------------------------------------------------------
-		final Label titleLabel = new Label("Settings", skin);
-
-
-		// Label
-		final Label velocityLabel = new Label("Velocity", skin);
 		
-		// Control
-		velocitySlider = new Slider(MIN_VELOCITY, MAX_VELOCITY, 1, false, skin);
+		final Label titleLabel = new Label("Settings", skin, URL_LABEL_FONT, Color.YELLOW);
 
-		velocityValueLabel = new Label("", skin);
-
-		// Label
-		final Label bpmLabel = new Label("BPM", skin);
-		// Control
-		bpmSlider = new Slider(MIN_BPM, MAX_BPM, INC_BPM, false, skin);
-		// Value
-		bpmSlider.setValue(appProperties.getBpm());
-
-		bpmValueLabel = new Label("", skin);
-
-		final Table table = new Table();
-
-		table.size((int) getWidth(), (int) getHeight());
-
-		table.add(titleLabel).expandX();
-		table.row();
-		table.add(velocityLabel).expandY();
-		table.add(velocitySlider);
-		table.add(velocityValueLabel).padRight(100);
-		table.row();
-		table.add(bpmLabel).expandY();
-		table.add(bpmSlider);
-		table.add(bpmValueLabel).padRight(100);
-
-		table.setFillParent(true);
-
-		table.pack();
-
-		addActor(table);
-
-		// Update display
-		updateVolumeText();
-		updateBpmText();
-
-		// Handlers
-
-		velocitySlider.addListener(new ChangeListener()
-		{
-
-			@Override
-			public void changed(ChangeEvent event, Actor actor)
-			{
-				Slider slider = (Slider) actor;
-
-				float value = slider.getValue();
-				
-				if (value == 0)
-				{
-					appProperties.setVelocity(0);
-				}
-				else
-				{
-					appProperties.setVelocity((int) value);
-				}
-			}
-
-		});
-		
-		bpmSlider.addListener(new ChangeListener()
-		{
-
-			@Override
-			public void changed(ChangeEvent event, Actor actor)
-			{
-				Slider slider = (Slider) actor;
-
-				float value = slider.getValue();
-				
-				if (value == 0)
-				{
-					appProperties.setBpm(0);
-				}
-				else
-				{
-					appProperties.setBpm((int) value);
-				}
-			}
-
-		});
+//		// Label
+//		final Label velocityLabel = new Label("Velocity", skin);
+//		// Control
+//		velocitySlider = new Slider(MIN_VELOCITY, MAX_VELOCITY, 1, false, skin);
+//		// Value
+//		velocityValueLabel = new Label("", skin);
+//
+//		// Label
+//		final Label bpmLabel = new Label("BPM", skin);
+//		// Control
+//		bpmSlider = new Slider(MIN_BPM, MAX_BPM, INC_BPM, false, skin);
+//		// Value
+//		bpmSlider.setValue(appProperties.getBpm());
+//
+//		bpmValueLabel = new Label("", skin);
+//
+//		// ---------------------------------------------------------------
+//		// Table
+//		// ---------------------------------------------------------------
+//		
+//		table = new Table();
+//		// ---------------------------------------------------------------
+//		// Table
+//		// ---------------------------------------------------------------
+//
+//		table.setSize(getHeight(), getWidth());
+//
+//
+//		table.row();
+//		table.add(titleLabel).expandX();
+//		table.row();
+//		table.add(velocityLabel).expandY();
+//		table.add(velocitySlider);
+//		table.add(velocityValueLabel).padRight(100);
+//		table.row();
+//		table.add(bpmLabel).expandY();
+//		table.add(bpmSlider);
+//		table.add(bpmValueLabel).padRight(100);
+//
+//		table.setFillParent(true);
+//
+//		table.pack();
+//
+//		addActor(table);
+//
+//		// Update display
+//		updateVolumeText();
+//		updateBpmText();
+//
+//		// Handlers
+//
+//		velocitySlider.addListener(new ChangeListener()
+//		{
+//
+//			@Override
+//			public void changed(ChangeEvent event, Actor actor)
+//			{
+//				Slider slider = (Slider) actor;
+//
+//				float value = slider.getValue();
+//				
+//				if (value == 0)
+//				{
+//					appProperties.setVelocity(0);
+//				}
+//				else
+//				{
+//					appProperties.setVelocity((int) value);
+//				}
+//			}
+//
+//		});
+//		
+//		bpmSlider.addListener(new ChangeListener()
+//		{
+//
+//			@Override
+//			public void changed(ChangeEvent event, Actor actor)
+//			{
+//				Slider slider = (Slider) actor;
+//
+//				float value = slider.getValue();
+//				
+//				if (value == 0)
+//				{
+//					appProperties.setBpm(0);
+//				}
+//				else
+//				{
+//					appProperties.setBpm((int) value);
+//				}
+//			}
+//
+//		});
 
 	}
 

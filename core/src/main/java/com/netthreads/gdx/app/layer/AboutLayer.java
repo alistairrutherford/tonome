@@ -27,6 +27,7 @@ public class AboutLayer extends Layer
 	private TextureRegion logo;
 	private Skin skin;
 	private Label urlLabel;
+	private Label authorLabel;
 	private Label versionLabel;
 	private TextureCache textureCache;
 
@@ -81,6 +82,8 @@ public class AboutLayer extends Layer
 		// ---------------------------------------------------------------
 		urlLabel = new Label("www.netthreads.co.uk", skin, URL_LABEL_FONT, Color.WHITE);
 
+		authorLabel = new Label("Tonome - (c) Alistair Rutherford", skin, URL_LABEL_FONT, Color.WHITE);;
+
 		versionLabel = new Label(Tonome.VERSION_TEXT, skin, URL_LABEL_FONT, Color.WHITE);
 
 		// ---------------------------------------------------------------
@@ -90,6 +93,8 @@ public class AboutLayer extends Layer
 
 		table.size((int) getWidth(), (int) getHeight());
 
+		table.row();
+		table.add(authorLabel).expandY().expandX();
 		table.row();
 		table.add(urlLabel).expandY().expandX();
 		table.row();
