@@ -7,6 +7,10 @@ Menu
 -----
 ![Menu](https://github.com/alistairrutherford/images/raw/master/tonome0.png)
 
+Connection
+-----------
+![Menu](https://github.com/alistairrutherford/images/raw/master/tonome3.png)
+
 Panel
 -----
 ![Menu](https://github.com/alistairrutherford/images/raw/master/tonome1.png)
@@ -16,6 +20,3 @@ Settings
 ![Menu](https://github.com/alistairrutherford/images/raw/master/tonome2.png)
 
 
-Connection
------------
-![Menu](https://github.com/alistairrutherford/images/raw/master/tonome3.png)
