@@ -20,7 +20,7 @@ import com.netthreads.libgdx.texture.TextureDefinition;
  */
 public class AboutLayer extends Layer
 {
-	private static final String URL_LABEL_FONT = "default-font";
+	private static final String URL_LABEL_FONT = "normal-font";
 	private static final String UI_FILE = "data/uiskin32.json";
 
 	private Table table;

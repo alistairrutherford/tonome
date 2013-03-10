@@ -27,7 +27,7 @@ import com.netthreads.network.osc.client.OSCClient;
 public class ConnectingLayer extends Layer implements ActorEventObserver
 {
 	private static final String UI_FILE = "data/uiskin32.json";
-	private static final String LABEL_FONT = "default-font";
+	private static final String LABEL_FONT = "normal-font";
 
 	private static final String TEXT_CONNECTING = "Connect to server";
 
