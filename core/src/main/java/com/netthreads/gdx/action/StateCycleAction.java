@@ -3,7 +3,7 @@ package com.netthreads.gdx.action;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Pool;
-import com.netthreads.gdx.sprite.StateSprite;
+import com.netthreads.gdx.app.sprite.StateSprite;
 
 /**
  * Flip through states.
