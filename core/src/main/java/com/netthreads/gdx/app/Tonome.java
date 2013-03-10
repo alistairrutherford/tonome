@@ -90,7 +90,7 @@ public class Tonome extends InputAdapter implements ApplicationListener, ActorEv
 		this.director.setClearColourB(0.0f);
 
 		// Set initial scene.
-		this.director.setScene(getConnectScene());
+		this.director.setScene(getMenuScene());
 	}
 
 	/**

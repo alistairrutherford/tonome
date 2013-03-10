@@ -27,6 +27,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.netthreads.gdx.app.definition.AppEvents;
 import com.netthreads.gdx.app.properties.AppProperties;
@@ -55,12 +56,16 @@ public class SettingsLayer extends Layer
 
 	private StringBuilder velocityText = new StringBuilder(10);
 	private StringBuilder bpmText = new StringBuilder(10);
+	private StringBuilder portText = new StringBuilder(10);
 
-	private Slider velocitySlider;
+	private Slider velocityValueSlider;
 	private Label velocityValueLabel;
-	private Label bpmValueLabel;
 	private Slider bpmSlider;
+	private Label bpmValueLabel;
 
+	private TextField portValue;
+	private TextField hostValue;
+	
 	private Director director;
 	private AppProperties appProperties;
 
@@ -93,7 +98,7 @@ public class SettingsLayer extends Layer
 		super.enter();
 
 		// Update display
-		updateVolumeText();
+		updateVelocityText();
 		updateBpmText();
 	}
 
@@ -113,26 +118,31 @@ public class SettingsLayer extends Layer
 	private void buildElements()
 	{
 		// ---------------------------------------------------------------
-		// Table
+		// Elements
 		// ---------------------------------------------------------------
 		final Label titleLabel = new Label("Settings", skin, URL_LABEL_FONT, Color.YELLOW);
 
-		// Label
+		// Host
+		final Label hostLabel = new Label("Host", skin);
+		hostValue = new TextField("", skin);
+		
+		// Port
+		final Label portLabel = new Label("Port", skin);
+		portValue = new TextField("", skin);
+		
+		// Velocity
 		final Label velocityLabel = new Label("Velocity", skin);
-
-		// Control
-		velocitySlider = new Slider(MIN_VELOCITY, MAX_VELOCITY, 1, false, skin);
-
+		velocityValueSlider = new Slider(MIN_VELOCITY, MAX_VELOCITY, 1, false, skin);
 		velocityValueLabel = new Label("", skin);
 
-		// Label
+		// BPM
 		final Label bpmLabel = new Label("BPM", skin);
-		// Control
 		bpmSlider = new Slider(MIN_BPM, MAX_BPM, INC_BPM, false, skin);
-		// Value
-		bpmSlider.setValue(appProperties.getBpm());
-
 		bpmValueLabel = new Label("", skin);
+
+		// ---------------------------------------------------------------
+		// Table
+		// ---------------------------------------------------------------
 
 		table = new Table();
 
@@ -140,8 +150,14 @@ public class SettingsLayer extends Layer
 
 		table.add(titleLabel).expandX();
 		table.row();
+		table.add(hostLabel).expandY();
+		table.add(hostValue);
+		table.row();
+		table.add(portLabel).expandY();
+		table.add(portValue);
+		table.row();
 		table.add(velocityLabel).expandY();
-		table.add(velocitySlider);
+		table.add(velocityValueSlider);
 		table.add(velocityValueLabel).padRight(100);
 		table.row();
 		table.add(bpmLabel).expandY();
@@ -155,12 +171,14 @@ public class SettingsLayer extends Layer
 		addActor(table);
 
 		// Update display
-		updateVolumeText();
+		updateHostText();
+		updatePortText();
+		updateVelocityText();
 		updateBpmText();
 
 		// Handlers
 
-		velocitySlider.addListener(new ChangeListener()
+		velocityValueSlider.addListener(new ChangeListener()
 		{
 
 			@Override
@@ -178,6 +196,8 @@ public class SettingsLayer extends Layer
 				{
 					appProperties.setVelocity((int) value);
 				}
+				
+				updateVelocityText();
 			}
 
 		});
@@ -200,6 +220,8 @@ public class SettingsLayer extends Layer
 				{
 					appProperties.setBpm((int) value);
 				}
+				
+				updateBpmText();
 			}
 
 		});
@@ -229,12 +251,11 @@ public class SettingsLayer extends Layer
 	 * Reformat text. Call invalidate to ensure it gets redrawn.
 	 * 
 	 */
-	private void updateVolumeText()
+	private void updateVelocityText()
 	{
 		float value = appProperties.getVelocity();
 
-		// Value
-		velocitySlider.setValue(value);
+		velocityValueSlider.setValue(value);
 
 		velocityText.setLength(0);
 		velocityText.append(Math.abs(value));
@@ -250,10 +271,35 @@ public class SettingsLayer extends Layer
 	{
 		float value = appProperties.getBpm();
 
+		bpmSlider.setValue(value);
+		
 		bpmText.setLength(0);
 		bpmText.append(value);
 		bpmValueLabel.setText(bpmText);
 		bpmValueLabel.invalidate();
 	}
 
+	/**
+	 * Update text.
+	 * 
+	 */
+	private void updateHostText()
+	{
+		String value = appProperties.getHost();
+
+		hostValue.setText(value);
+	}
+
+	/**
+	 * Update text.
+	 * 
+	 */
+	private void updatePortText()
+	{
+		int value = appProperties.getPort();
+
+		portText.setLength(0);
+		portText.append(value);
+		portValue.setText(portText.toString());
+	}	
 }
