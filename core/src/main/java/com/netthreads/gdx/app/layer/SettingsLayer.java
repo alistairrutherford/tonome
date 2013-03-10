@@ -242,6 +242,17 @@ public class SettingsLayer extends Layer
 
 					handled = true;
 				}
+				else if (keycode == Keys.DEL)
+				{
+					String value = hostValue.getText();
+					int cursorPosition = hostValue.getCursorPosition();
+					if (cursorPosition > 0 && value.length() > 0)
+					{
+						value = value.substring(0, value.length());
+						hostValue.setText(value);
+						hostValue.setCursorPosition(cursorPosition);
+					}
+				}
 
 				return handled;
 			};
@@ -258,6 +269,17 @@ public class SettingsLayer extends Layer
 					layer.keyUp(keycode);
 
 					handled = true;
+				}
+				else if (keycode == Keys.DEL)
+				{
+					String value = portValue.getText();
+					int cursorPosition = portValue.getCursorPosition();
+					if (cursorPosition > 0 && value.length() > 0)
+					{
+						value = value.substring(0, value.length());
+						portValue.setText(value);
+						portValue.setCursorPosition(cursorPosition);
+					}
 				}
 
 				return handled;
