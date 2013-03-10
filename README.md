@@ -14,3 +14,8 @@ Panel
 Settings  
 --------
 ![Menu](https://github.com/alistairrutherford/images/raw/master/tonome2.png)
+
+
+Connection
+-----------
+![Menu](https://github.com/alistairrutherford/images/raw/master/tonome3.png)
