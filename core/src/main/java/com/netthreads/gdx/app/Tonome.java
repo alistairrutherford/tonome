@@ -39,10 +39,10 @@ public class Tonome extends InputAdapter implements ApplicationListener, ActorEv
 	public static final int DEFAULT_WIDTH = 480;
 	public static final int DEFAULT_HEIGHT = 320;
 
-	private static final int DURATION_TRANSITION_TO_MENU = 500;
-	private static final int DURATION_TRANSITION_TO_CONNECTING = 500;
-	private static final int DURATION_TRANSITION_TO_SETTINGS = 500;
-	private static final int DURATION_TRANSITION_TO_ABOUT = 500;
+	private static final int DURATION_TRANSITION_TO_MENU = 250;
+	private static final int DURATION_TRANSITION_TO_CONNECTING = 250;
+	private static final int DURATION_TRANSITION_TO_SETTINGS = 250;
+	private static final int DURATION_TRANSITION_TO_ABOUT = 250;
 
 	// Our 'scenes'.
 	private MenuScene menuScene;

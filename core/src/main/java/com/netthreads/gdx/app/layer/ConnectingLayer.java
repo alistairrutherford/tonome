@@ -33,7 +33,9 @@ public class ConnectingLayer extends Layer implements ActorEventObserver
 
 	private Table table;
 	private Skin skin;
-	private Label loadingLabel;
+	private Label connectLabel;
+	private Label hostLabel;
+	private Label portLabel;
 
 	private Button connectButton;
 
@@ -107,7 +109,9 @@ public class ConnectingLayer extends Layer implements ActorEventObserver
 	private void buildElements()
 	{
 		// Title
-		loadingLabel = new Label(TEXT_CONNECTING, skin, LABEL_FONT, Color.WHITE);
+		connectLabel = new Label(TEXT_CONNECTING, skin, LABEL_FONT, Color.WHITE);
+		hostLabel = new Label(appProperties.getHost(), skin, LABEL_FONT, Color.WHITE);
+		portLabel = new Label(appProperties.getPortText(), skin, LABEL_FONT, Color.WHITE);
 
 		// ---------------------------------------------------------------
 		// Buttons.
@@ -123,7 +127,11 @@ public class ConnectingLayer extends Layer implements ActorEventObserver
 		table.row();
 
 		table.row();
-		table.add(loadingLabel).expandY().expandX();
+		table.add(connectLabel).expandY().expandX();
+		table.row();
+		table.add(hostLabel).expandY().expandX();
+		table.row();
+		table.add(portLabel).expandY().expandX();
 		table.row();
 		table.add(connectButton).expandY().expandX();
 		table.row();
@@ -186,7 +194,7 @@ public class ConnectingLayer extends Layer implements ActorEventObserver
 		{
 			String host = appProperties.getHost();
 			int port = appProperties.getPort();
-			
+
 			if (oscClient.connect(host, port))
 			{
 				director.sendEvent(AppEvents.EVENT_CONNECT_OSC_SUCCESS, null);
@@ -196,7 +204,7 @@ public class ConnectingLayer extends Layer implements ActorEventObserver
 		{
 			// Error
 		}
-		
+
 		if (!oscClient.isConnected())
 		{
 			director.sendEvent(AppEvents.EVENT_CONNECT_OSC_FAIL, null);

@@ -44,7 +44,7 @@ import com.netthreads.libgdx.scene.Layer;
 public class SettingsLayer extends Layer
 {
 	private static final String UI_FILE = "data/uiskin32.json";
-	private static final String URL_LABEL_FONT = "default-font";
+	private static final String URL_LABEL_FONT = "normal-font";
 
 	private static final float MIN_VELOCITY = 0;
 	private static final float MAX_VELOCITY = 127;
@@ -55,10 +55,6 @@ public class SettingsLayer extends Layer
 
 	private Table table;
 	private Skin skin;
-
-	private StringBuilder velocityText = new StringBuilder(10);
-	private StringBuilder bpmText = new StringBuilder(10);
-	private StringBuilder portText = new StringBuilder(10);
 
 	private Slider velocityValueSlider;
 	private Label velocityValueLabel;
@@ -234,15 +230,13 @@ public class SettingsLayer extends Layer
 		{
 			public boolean keyUp(InputEvent event, int keycode)
 			{
-				boolean handled = false;
+				boolean handled = layer.keyUp(keycode);
 
-				if (keycode == Keys.BACK || keycode == Keys.ESCAPE)
-				{
-					layer.keyUp(keycode);
+				appProperties.setPort(keycode);
 
-					handled = true;
-				}
-				else if (keycode == Keys.DEL)
+				updatePortText();
+
+				if (!handled && (keycode == Keys.BACKSPACE || keycode == Keys.DEL))
 				{
 					String value = hostValue.getText();
 					int cursorPosition = hostValue.getCursorPosition();
@@ -256,21 +250,34 @@ public class SettingsLayer extends Layer
 
 				return handled;
 			};
+
+			public boolean keyDown(InputEvent event, int keycode)
+			{
+				appProperties.setPort(keycode);
+
+				updatePortText();
+
+				return false;
+			}
+
+			public boolean keyTyped(InputEvent event, char character)
+			{
+				appProperties.setPort(character);
+
+				updatePortText();
+
+				return false;
+			}
+
 		});
 
 		portValue.addListener(new InputListener()
 		{
 			public boolean keyUp(InputEvent event, int keycode)
 			{
-				boolean handled = false;
+				boolean handled = layer.keyUp(keycode);
 
-				if (keycode == Keys.BACK || keycode == Keys.ESCAPE)
-				{
-					layer.keyUp(keycode);
-
-					handled = true;
-				}
-				else if (keycode == Keys.DEL)
+				if (!handled && (keycode == Keys.BACKSPACE || keycode == Keys.DEL))
 				{
 					String value = portValue.getText();
 					int cursorPosition = portValue.getCursorPosition();
@@ -301,9 +308,20 @@ public class SettingsLayer extends Layer
 		{
 			try
 			{
-				// Update values.
-				appProperties.setHost(hostValue.getText());
-				appProperties.setPort(Integer.valueOf(portValue.getText()));
+				// Update values. We can't assign empty values.
+				String hostText = hostValue.getText();
+				if (hostText != null && !hostText.isEmpty())
+				{
+					appProperties.setHost(hostText);
+				}
+
+				String portText = portValue.getText();
+				if (portText != null && !portText.isEmpty())
+				{
+					int port = Integer.valueOf(portText);
+
+					appProperties.setPort(port);
+				}
 			}
 			catch (Exception e)
 			{
@@ -328,9 +346,7 @@ public class SettingsLayer extends Layer
 
 		velocityValueSlider.setValue(value);
 
-		velocityText.setLength(0);
-		velocityText.append(Math.abs(value));
-		velocityValueLabel.setText(velocityText);
+		velocityValueLabel.setText(appProperties.getVelocityText());
 		velocityValueLabel.invalidate();
 	}
 
@@ -344,9 +360,7 @@ public class SettingsLayer extends Layer
 
 		bpmSlider.setValue(value);
 
-		bpmText.setLength(0);
-		bpmText.append(value);
-		bpmValueLabel.setText(bpmText);
+		bpmValueLabel.setText(appProperties.getBpmText());
 		bpmValueLabel.invalidate();
 	}
 
@@ -367,10 +381,8 @@ public class SettingsLayer extends Layer
 	 */
 	private void updatePortText()
 	{
-		int value = appProperties.getPort();
+		String value = appProperties.getPortText();
 
-		portText.setLength(0);
-		portText.append(value);
-		portValue.setText(portText.toString());
+		portValue.setText(value);
 	}
 }

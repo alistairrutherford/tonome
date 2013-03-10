@@ -10,7 +10,7 @@ import com.netthreads.libgdx.scene.Scene;
  */
 public class MenuScene extends Scene
 {
-	private Layer menuLayer;
+	private final Layer menuLayer;
 
 	public MenuScene()
 	{

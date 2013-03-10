@@ -11,8 +11,8 @@ import com.netthreads.libgdx.scene.Scene;
  */
 public class AboutScene extends Scene
 {
-	private Layer controlLayer;
-	private Layer aboutLayer;
+	private final Layer controlLayer;
+	private final Layer aboutLayer;
 	
 	public AboutScene()
 	{

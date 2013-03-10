@@ -17,13 +17,13 @@ import com.netthreads.libgdx.scene.Scene;
  */
 public class PanelScene extends Scene
 {
-	private Layer keyLayer;
-	private Layer fpsLayer;
-	private TouchSurfaceLayer touchLayer;
-	private Layer noteLayer;
-	private Layer displayBarLayer;
-	private Layer controlLayer;
-	private Layer navigationLayer;
+	private final Layer keyLayer;
+	private final Layer fpsLayer;
+	private final TouchSurfaceLayer touchLayer;
+	private final Layer noteLayer;
+	private final Layer displayBarLayer;
+	private final Layer controlLayer;
+	private final Layer navigationLayer;
 
 	/**
 	 * Panel scene.

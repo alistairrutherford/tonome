@@ -22,7 +22,7 @@ import com.netthreads.libgdx.scene.Layer;
 public class MenuLayer extends Layer
 {
 	private static final String UI_FILE = "data/uiskin32.json";
-	private static final String UI_FONT = "default-font";
+	private static final String UI_FONT = "normal-font";
 
 	private Table table;
 	private Skin skin;
