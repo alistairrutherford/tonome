@@ -251,24 +251,6 @@ public class SettingsLayer extends Layer
 				return handled;
 			};
 
-//			public boolean keyDown(InputEvent event, int keycode)
-//			{
-//				appProperties.setPort(keycode);
-//
-//				updatePortText();
-//
-//				return false;
-//			}
-//
-//			public boolean keyTyped(InputEvent event, char character)
-//			{
-//				appProperties.setPort(character);
-//
-//				updatePortText();
-//
-//				return false;
-//			}
-
 		});
 
 		portValue.addListener(new InputListener()
