@@ -21,7 +21,7 @@ package com.netthreads.gdx.app.sprite;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.netthreads.libgdx.scene.ActorEx;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
  * State Frame Sprite.
@@ -29,14 +29,14 @@ import com.netthreads.libgdx.scene.ActorEx;
  * Allows us to switch between sprite frames.
  * 
  */
-public class StateSprite extends ActorEx
+public class StateSprite extends Actor
 {
 	private TextureRegion[] frames;
-
+	
 	private TextureRegion currentFrame;
-
+	
 	private int frame;
-
+	
 	/**
 	 * Construct sprite.
 	 * 
@@ -53,7 +53,7 @@ public class StateSprite extends ActorEx
 		int tileHeight = texture.getRegionHeight() / rows;
 		TextureRegion[][] tmp = texture.split(tileWidth, tileHeight);
 		frames = new TextureRegion[cols * rows];
-
+		
 		int index = 0;
 		for (int i = 0; i < rows; i++)
 		{
@@ -62,15 +62,15 @@ public class StateSprite extends ActorEx
 				frames[index++] = tmp[i][j];
 			}
 		}
-
+		
 		// Set the sprite width and height.
 		setWidth(tileWidth);
 		setHeight(tileHeight);
-
+		
 		// Initialise the current frame.
 		setFrame(0);
 	}
-
+	
 	/**
 	 * Draw sprite.
 	 * 
@@ -80,7 +80,7 @@ public class StateSprite extends ActorEx
 	{
 		batch.draw(currentFrame, getX(), getY());
 	}
-
+	
 	/**
 	 * Set current frame to display.
 	 * 
@@ -89,15 +89,15 @@ public class StateSprite extends ActorEx
 	public void setFrame(int frame)
 	{
 		this.frame = frame;
-
+		
 		if (this.frame > frames.length)
 		{
 			this.frame = 0;
 		}
-
+		
 		currentFrame = frames[frame];
 	}
-
+	
 	/**
 	 * Increment frame.
 	 * 
@@ -105,10 +105,10 @@ public class StateSprite extends ActorEx
 	public void incFrame()
 	{
 		int newFrame = (this.frame + 1) % frames.length;
-
+		
 		setFrame(newFrame);
 	}
-
+	
 	/**
 	 * Return frame index.
 	 * 
@@ -118,5 +118,5 @@ public class StateSprite extends ActorEx
 	{
 		return frame;
 	}
-
+	
 }
