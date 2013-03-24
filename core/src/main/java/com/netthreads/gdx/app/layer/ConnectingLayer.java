@@ -195,6 +195,11 @@ public class ConnectingLayer extends Layer implements ActorEventObserver
 			String host = appProperties.getHost();
 			int port = appProperties.getPort();
 
+			// Update view.
+			hostLabel.setText(host);
+			portLabel.setText(appProperties.getPortText());
+
+			// Try to connect.
 			if (oscClient.connect(host, port))
 			{
 				director.sendEvent(AppEvents.EVENT_CONNECT_OSC_SUCCESS, null);

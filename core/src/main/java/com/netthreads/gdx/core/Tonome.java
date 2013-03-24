@@ -1,4 +1,4 @@
-package com.netthreads.gdx.app;
+package com.netthreads.gdx.core;
 
 import aurelienribon.tweenengine.equations.Linear;
 

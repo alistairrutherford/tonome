@@ -232,10 +232,6 @@ public class SettingsLayer extends Layer
 			{
 				boolean handled = layer.keyUp(keycode);
 
-				appProperties.setPort(keycode);
-
-				updatePortText();
-
 				if (!handled && (keycode == Keys.BACKSPACE || keycode == Keys.DEL))
 				{
 					String value = hostValue.getText();

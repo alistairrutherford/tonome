@@ -1,7 +1,7 @@
 package com.netthreads.gdx.java;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.netthreads.gdx.app.Tonome;
+import com.netthreads.gdx.core.Tonome;
 
 public class TonomeDesktop
 {

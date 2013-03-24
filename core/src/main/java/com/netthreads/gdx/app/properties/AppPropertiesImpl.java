@@ -56,7 +56,7 @@ public class AppPropertiesImpl implements AppProperties
 	public void setBpm(int bpm)
 	{
 		bpmText.setLength(0);
-		bpmText.append(velocity);
+		bpmText.append(bpm);
 
 		this.bpm = bpm;
 	}
