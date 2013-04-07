@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.netthreads.gdx.app.Tonome;
+import com.netthreads.gdx.core.Tonome;
 
 public class TonomeActivity extends AndroidApplication
 {
