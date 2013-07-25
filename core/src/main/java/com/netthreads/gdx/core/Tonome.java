@@ -252,6 +252,9 @@ public class Tonome extends InputAdapter implements ApplicationListener, ActorEv
 	 */
 	private void handleTransitionToMenuScene()
 	{
+		// Force a disconnection
+		oscClient.disconnect();
+		
 		// Stop the note service.
 		noteService.setCurrentTransportState(TransportState.STOP);
 
