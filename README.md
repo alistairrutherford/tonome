@@ -3,9 +3,13 @@ tonome
 
 Matrix-player style instrument. Transmits tone-matrix scale notes on four different panels using OSC (Open Sound Control)
 
-This was written using LibGDX and my own extension library which is here: https://github.com/alistairrutherford/netthreads-libgdx
+This uses the following libraries:
 
-It targets the desktop and Android.
+osc-tools : https://github.com/alistairrutherford/osc-tools
+
+netthreads-libgdx : https://github.com/alistairrutherford/netthreads-libgdx
+
+It targets the desktop and Android. Still a work in progress.
 
 Menu
 -----
