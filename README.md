@@ -11,7 +11,6 @@ netthreads-libgdx : https://github.com/alistairrutherford/netthreads-libgdx
 
 It targets the desktop and Android. Still a work in progress.
 
-You can use the osc-router application in the osc-tools project to try it out on your desktop (please do as I can't test on every platform).
 
 Menu
 -----
@@ -29,6 +28,12 @@ Settings
 --------
 ![Menu](https://github.com/alistairrutherford/images/raw/master/tonome2.png)
 
+
+You can try this application out with the **osc-router** application from the osc-tools project.
+
+![User interface](https://github.com/alistairrutherford/images/raw/master/oscrouterfx.png)
+
+Feedback always welcome.
 
 License
 --------
