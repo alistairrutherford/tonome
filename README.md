@@ -29,7 +29,7 @@ Settings
 ![Menu](https://github.com/alistairrutherford/images/raw/master/tonome2.png)
 
 
-You can try this application out with the **osc-router** application from the osc-tools project.
+You can try this application out with the **osc-router** application from the osc-tools project here: https://github.com/alistairrutherford/osc-tools
 
 ![User interface](https://github.com/alistairrutherford/images/raw/master/oscrouterfx.png)
 
