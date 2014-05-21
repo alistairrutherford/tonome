@@ -18,15 +18,15 @@ Menu
 
 Connection
 -----------
-![Menu](https://github.com/alistairrutherford/images/raw/master/tonome3.png)
+![Connection](https://github.com/alistairrutherford/images/raw/master/tonome3.png)
 
 Panel
 -----
-![Menu](https://github.com/alistairrutherford/images/raw/master/tonome1.png)
+![Panel](https://github.com/alistairrutherford/images/raw/master/tonome1.png)
 
 Settings  
 --------
-![Menu](https://github.com/alistairrutherford/images/raw/master/tonome2.png)
+![Settings](https://github.com/alistairrutherford/images/raw/master/tonome2.png)
 
 
 You can try this application out with the **osc-router** application from the osc-tools project here: https://github.com/alistairrutherford/osc-tools
